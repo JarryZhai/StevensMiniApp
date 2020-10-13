@@ -1,0 +1,86 @@
+<!--miniprogram/pages/myschedule/myschedule.wxml-->
+<van-nav-bar
+  title="我的课表"
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+
+<van-swipe-cell right-width="{{ 65 }}" wx:for-items="{{schedule}}" wx:for-item="i" wx:key="key" wx:for-index='index' >
+  <van-panel title="{{i[0]}}" desc="{{i[1]}}" status="教室：{{i[3]}}">
+    <view>
+      <van-cell title="上课时间" value="{{i[2]}}"/>
+      <van-cell center title="Note" label="{{i[4]}}" label-class='note'>
+        <van-button size="mini" type="primary" data-src='{{index}}' bindtap="onNoteShow">更新Note</van-button>
+      </van-cell>
+    </view>
+  </van-panel>
+  <view slot="right" class='swipe_right' data-id='{{index}}' bindtap="deleteCourse">删除</view>
+  <view class='placeholder-buttom' />
+
+  
+</van-swipe-cell>
+
+
+<van-collapse value="{{ active }}" data-key="active" bind:change="onAddChange">
+  <van-collapse-item title="添加新的课程" value="点击展开添加菜单" >
+    <van-cell-group >
+      <van-field
+        value="{{ newCourseID }}"
+        label="课程代码"
+        placeholder="请输入课程代码"
+        border="{{ false }}"
+        bind:change="onCourseIDChange"
+      />
+      <van-field
+        
+        value="{{ newCourseName }}"
+        label="课程名称"
+        placeholder="请输入课程名称"
+        border="{{ false }}"
+        bind:change="onCourseNameChange"
+      />
+      <van-field
+        value="{{ newCourseTime }}"
+        label="上课时间"
+        placeholder="如：星期一 8:30 AM"
+        border="{{ false }}"
+        bind:change="onCourseTimeChange"
+      />
+      <van-field
+        value="{{ newCourseRoom }}"
+        label="上课教室"
+        placeholder="请输入上课教室"
+        border="{{ false }}"
+        bind:change="onCourseRoomChange"
+      />
+      <van-field 
+        autosize
+        focus
+        value="{{ newCourseNote }}"
+        label="可修改Note:"
+        border="{{ false }}"
+        type="textarea"
+        placeholder=""
+        bind:change="onCourseNoteChange"
+      />
+      <van-button type="info" block bindtap="addCourse">确认添加</van-button>
+    </van-cell-group>
+  </van-collapse-item>
+</van-collapse>
+
+<van-action-sheet show="{{ noteshow }}" title="新Note" bind:close="onNoteClose">
+  <van-cell-group>
+    <van-field
+      autosize
+      type="textarea"
+      value="{{ oldCourseNote }}"
+      placeholder="输入新的Note"
+      border="{{ true }}"
+      bind:change="onUpdateCourseNoteChange"
+      clearable 
+      auto-focus
+      focus/>
+  </van-cell-group>
+  <van-button color="#0FC600" block data-id='{{tempnoteid}}' bindtap="updateNote">确认修改</van-button>
+</van-action-sheet>

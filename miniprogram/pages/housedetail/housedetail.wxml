@@ -1,0 +1,55 @@
+<!--miniprogram/pages/housedetail/housedetail.wxml-->
+<van-nav-bar
+  title="房屋详情"
+  left-text="转租首页"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+
+<van-notice-bar wx:if='{{imgdone==0}}' text="正在生成此房屋的分享卡片..."/>
+<progress active='{{true}}' active-mode='forwards' wx:if='{{imgdone==0}}' percent="{{ mergeValue }}" show-info stroke-width="8" duration='40' border-radius='5' activeColor="#10AEFF"/>
+
+<van-notice-bar wx:if='{{imgdone==1}}' wrapable mode="closeable" text="分享卡片已生成！点击右上角分享给小伙伴！" />
+
+
+<!-- 轮播图 -->
+<view class='pageBox pageTwo' bindtap='previewimg'>
+  <swiper class='swiperClass' autoplay indicator-color="#a39f99" indicator-active-color="#f49641" indicator-dots  interval="3000" duration="2000" previous-margin="60px" next-margin="60px" circular bindchange="bindchange" style='height: 500rpx' >
+  <block wx:for="{{detaillist[0].imgID}}" wx:key="{{index}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image {{swiperIdx == index ? 'active' : 'quiet'}}" mode='aspectFill'></image>
+    </swiper-item>
+  </block>
+ </swiper>
+</view>
+
+
+<van-cell-group>
+  <van-cell size="large" title="{{renttimejs[detaillist[0].renttime]}} - {{AptHousejs[detaillist[0].AptHouse]}} - {{roomtypejs[detaillist[0].roomtype]}}" value="{{detaillist[0].hprice}}$/月" />
+  <van-cell>
+    <view class='title'>{{detaillist[0].hintro}}</view>
+  </van-cell>
+</van-cell-group>
+
+
+.
+ <van-grid gutter="{{ 20 }}" column-num="2" >
+  <van-grid-item 
+    icon="calender-o"
+    text="可租日期：{{detaillist[0].date1}}~{{detaillist[0].date2}}" />
+  <van-grid-item 
+    icon="sign" 
+    text="卫生间： {{bathroomjs[detaillist[0].bathroom]}}" />
+  <van-grid-item 
+    icon="chat-o" 
+    text="点击复制联系微信" 
+    bindtap="copyText"/>
+  <van-grid-item 
+    icon="expand-o" 
+    text="打开地图查看位置" 
+    bindtap="checkMap">
+  </van-grid-item>
+</van-grid>
+
+  <van-divider contentPosition="center"></van-divider>
+  <canvas style="width: 375px; height: 300px;position: absolute; z-index: -1; left: -10000rpx;; top: -10000rpx;" canvas-id="firstCanvas"></canvas>

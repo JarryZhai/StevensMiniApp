@@ -1,0 +1,37 @@
+<!--miniprogram/pages/myitem/myitem.wxml-->
+<van-nav-bar
+  title="我的闲置"
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+
+<van-notice-bar wx:if='{{imgdone==0}}' text="先别着急转发，正在为你生成专属分享卡片..."/>
+
+<progress active='{{true}}' active-mode='forwards' wx:if='{{imgdone==0}}' percent="{{ mergeValue }}" show-info stroke-width="8" duration='10' border-radius='5' activeColor="#10AEFF"/>
+<van-notice-bar wx:if='{{imgdone==1}}' wrapable mode="closeable" text="你的专属分享卡片已生成！点击右上角分享给小伙伴，实时更新，灵活管理，不再P图！" />
+
+<van-cell title="您发布了{{itemslist.length}}件闲置" label="拥有擦亮卡{{memberinfo[0].renewitemcard}}张（在首页连续签到兑换）" border="{{ false }}" />
+
+<van-card wx:for="{{itemslist}}" lazy-load="true" wx:for-item="i" currency="$" thumb-mode="aspectFill"
+  tag="闲置"
+  price="{{i.iprice}}"
+  desc="{{i.iintro}}"
+  title="{{i.iname}}" 
+  thumb="{{ i.imgID }}"
+  desc-class="line-limit-2"
+  title-class="itemtitle">
+  <view slot="tags">
+    <van-tag round type="primary" custom-class="tag" wx:if="{{i.iaddress!=''}}">{{i.iaddress}} {{i.ideliver}}</van-tag>
+  </view>
+  <view slot="footer">
+    <van-button round style='margin-right: 10rpx' color="linear-gradient(to right, #4bb0ff, #6149f6)" size="small" data-openid='{{i._openid}}' data-src='{{i._id}}' bindtap="renew" >🌟擦亮</van-button>
+    <van-button round color="linear-gradient(to right, #4bb0ff, #6149f6)" size="small" src='{{i._id}}' data-src='{{i._id}}' bindtap="onDelete"  data-imgid='{{i.imgID}}'>已卖出/删除</van-button>
+  </view>
+</van-card>
+
+<van-divider contentPosition="center">没有更多了</van-divider>
+
+<canvas style="width: 375px; height: 300px;position: absolute; z-index: -1; left: -10000rpx;; top: -10000rpx;" canvas-id="firstCanvas"></canvas>
+
+

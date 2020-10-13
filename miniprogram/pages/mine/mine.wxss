@@ -1,0 +1,78 @@
+/* miniprogram/pages/mine/mine.wxss */
+.UCenter-bg {
+  background-image: url("https://picsum.photos/400");
+  background-size: cover;
+  height: 550rpx;
+  display: flex;
+  justify-content: center;
+  padding-top: 40rpx;
+  overflow: hidden;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-weight: 300;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  margin-bottom: 60rpx;
+}
+
+.UCenter-bg text {
+  opacity: 0.8;
+  font-weight: bold;
+  background-color: rgba(105, 105, 105, 0.212);
+  filter: blur();
+}
+
+.margin-top-sm {
+  margin-top: 20rpx;
+  font-size: 26rpx;
+}
+
+.margin-left-sm {
+  margin-top: 20rpx;
+  margin-left: 500rpx;
+  font-size: 26rpx;
+}
+
+.UCenter-bg image {
+  margin-top: 5rpx;
+  width: 250rpx;
+  height: 250rpx;
+}
+
+.UCenter-bg .gif-wave{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  mix-blend-mode: screen;  
+  height: 100rpx;   
+}
+
+map,.mapBox{
+  left: 0;
+  z-index: 99;
+  mix-blend-mode: screen;  
+  height: 100rpx;   
+}
+
+map,.mapBox{
+  width: 750rpx;
+  height: 300rpx;
+}
+
+.aboutpop{
+  width: 80%;
+  height: 70%;
+}
+
+.advpop{
+  width: 70%;
+  height: 37%;
+}
+
+.imagetop{
+  margin-top:30rpx ;
+  margin-bottom: 10rpx;
+}

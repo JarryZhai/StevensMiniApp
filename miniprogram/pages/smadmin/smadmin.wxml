@@ -1,0 +1,15 @@
+<!--miniprogram/pages/smadmin/smadmin.wxml-->
+<van-nav-bar
+  title="SM活动处理页"
+/>
+
+<van-panel wx:for-items="{{orderlist}}" wx:for-item="i" wx:key="key" title="{{i.SMmail}}" desc="{{i.SMname}}" status="{{i.SM10}}">
+  <view>
+    <van-cell center title="SMtime" label="{{i.SMtime}}" >
+      <van-button size="small" type="primary" data-id='{{i._id}}' data-openid='{{i._openid}}' bindtap="SMyes">成功</van-button>
+      <van-button size="mini" type="danger" data-id='{{i._id}}' data-openid='{{i._openid}}' bindtap="SMno">失败</van-button>
+    </van-cell>
+  </view>
+</van-panel>
+
+

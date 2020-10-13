@@ -1,0 +1,18 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "van-tabbar": "@vant/weapp/tabbar/index",
+    "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-card": "@vant/weapp/card/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-image": "@vant/weapp/image/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-nav-bar": "@vant/weapp/nav-bar/index",
+    "buy": "/pages/buy/buy",
+    "mine": "/pages/mine/mine",
+    "van-notice-bar": "@vant/weapp/notice-bar/index"
+  }
+}

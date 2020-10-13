@@ -1,0 +1,58 @@
+<!--miniprogram/pages/buy/buy.wxml-->
+
+<van-nav-bar
+  title="Stevens周边二手信息"
+/>
+
+<van-search
+    value="{{ value }}"
+    shape="round"
+    background="#E4F3F4"
+    placeholder="请输入关键词（点击图片看大图）"
+    bind:change="txtChange"
+    bind:search="onSearch"
+    show-action
+    bind:clear="searchAll"
+    use-action-slot
+>
+  <view slot="action">
+    <van-button round plain  color="#4CAFC6" size="mini" bindtap="searchFree">显示免费</van-button>
+    <van-button round plain  color="#4CAFC6" size="mini" bindtap="searchAll">显示全部</van-button>
+  </view>
+</van-search>
+
+<!-- <van-notice-bar  mode="closeable" text="新功能【我的闲置列表】自动实时更新，快去“我的闲置”试试吧" custom-class="demo-margin-bottom" /> -->
+
+<van-image  wx:if="{{itemlist==[]}}" width="100%" height="100rpx" src="https://s1.ax1x.com/2020/07/24/UjZttH.gif" fit="contain"/>
+
+<view wx:for="{{itemslist}}" wx:for-item="i" >
+  <van-card lazy-load="true" currency="$"
+    tag="闲置"
+    price="{{i.iprice}}"
+    desc="{{i.iintro}}"
+    title="{{i.iname}}" 
+    desc-class="line-limit-2"
+    title-class="itemtitle"
+  >
+    <view slot="tags">
+      <van-tag round type="primary" custom-class="tag" wx:if="{{i.iaddress!=''}}">{{i.iaddress}}【{{i.ideliver}}】</van-tag>
+    </view>
+    <view slot="thumb">
+      <van-image width="5.5rem" height="5.5rem" radius='7' src="{{ i.imgID }}" fit="cover" show-loading data-src='{{i.imgID}}' bindtap='previewImage'/>
+    </view>
+    <view slot="footer" >
+      <van-button class='btn' type="primary" size="mini" plain icon='https://s1.ax1x.com/2020/07/24/UXd44s.th.png' data-text="{{i.iwxid}}" bindtap='copyText' > 复制微信号 </van-button>
+    </view>
+  </van-card>
+</view>
+
+<van-divider wx:if='{{loading==0}}' contentPosition="center">上拉查看更多</van-divider>
+<van-divider wx:if='{{loading==1}}' contentPosition="center">加载中...</van-divider>
+<van-divider wx:if='{{loading==2}}' contentPosition="center">没有更多啦</van-divider>
+<view class='placeholder-buttom'/>
+
+<image  class="round-click" mode='aspectFill' src="../../images/pluscircle.png" bindtap="onGetOpenid"> </image>
+
+
+
+

@@ -1,0 +1,38 @@
+/* miniprogram/pages/sm_ad/smad.wxss */
+
+.invite{
+  word-wrap:break-word; 
+  word-break:break-all; 
+  width: 500rpx;
+}
+
+.labelbuy{
+  word-wrap:break-word; 
+  word-break:keep-all; 
+  margin-left: 50rpx;
+  width:  600rpx;
+}
+
+.check{
+  display: flex;
+  flex-direction: row;
+  display:inline-block;
+  margin-left: 10rpx;
+}
+
+.checkvalue{
+  width: 90%;
+}
+
+.checktitle{
+  width: 10%;
+}
+
+.value-class {
+  flex: none !important;
+}
+
+.openpop{
+  width: 80%;
+  height: 80%;
+}

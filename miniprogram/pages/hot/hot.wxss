@@ -1,0 +1,87 @@
+/* miniprogram/pages/hot/hot.wxss */
+.calenderpop{
+  width: 80%;
+  height: 70%;
+}
+
+.calendertitle{
+  font-weight: bold;
+  width: 750rpx;
+}
+
+.calenderlabel{
+  width: 400rpx;
+  margin-left: 50rpx;
+}
+
+.calendervalue{
+  width : 20%
+}
+
+.ohtitle{
+  margin-left: 30rpx;
+}
+
+.covidtitle{
+  font-weight: bolder;
+  width : 350rpx;
+  margin-left: 10rpx;
+  font-size: x-small;
+}
+
+.covidlabel{
+  width : 350rpx;
+  margin-left: 10rpx;
+  font-size: x-small;
+}
+
+.covidvalue{
+  font-size: small;
+}
+
+.weathertitle{
+  font-weight: bold;
+  font-size: medium;
+  color: rgb(0, 80, 155);
+  width: 100rpx;
+  margin-left: 10rpx;
+}
+
+.weatherlabel{
+  font-size: 10rpx;
+}
+
+.weathervalue{
+  width: 700rpx;
+  font-size: smaller;
+}
+
+.placeholder-buttom {
+  width: 100%;
+  height: 90rpx;
+}
+
+.placeholder-mid {
+  width: 100%;
+  height: 20rpx;
+}
+
+.onetimepop{
+  width: 70%;
+  height: 40%;
+}
+
+.downloadlabel{
+  width: 350rpx;
+  margin-left: 30rpx;
+}
+
+.exchangepop{
+  width: 70%;
+}
+
+.right{
+  justify-content: flex-end;
+  float:right;
+  text-align:right
+}

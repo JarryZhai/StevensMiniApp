@@ -1,0 +1,37 @@
+<!--miniprogram/pages/myhouse/myhouse.wxml-->
+<van-nav-bar
+  title="我的转租"
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+
+
+<van-notice-bar  mode="closeable" text="查看详情界面可以直接分享【转租卡片】，自动添加主要信息和封面图片，群友点击直达详情页面！" custom-class="demo-margin-bottom" />
+
+<van-card wx:for="{{houselist}}" lazy-load="true" wx:for-item="i" currency="$" thumb-mode="aspectFill"
+      tag="{{renttimejs[i.renttime]}}"
+      price="{{i.hprice}}/月"
+      desc="{{i.hintro}}"
+      title="{{AptHousejs[i.AptHouse]}} - {{roomtypejs[i.roomtype]}} - {{bathroomjs[i.bathroom]}}"
+      thumb="{{ i.imgID[0] }}"
+      desc-class="line-limit-2"
+      title-class="itemtitle">
+      <view slot="tags">
+        <van-tag round type="primary" custom-class="tag" wx:if="{{i.date1!=''}}">可租日期：{{i.date1}}~{{i.date2}}</van-tag>
+      </view>
+      <view slot="footer" >
+        <van-button color="linear-gradient(to right, #7495ED, #C591F0)" size="mini" data-src='{{i._id}}' bindtap="onDetail">查看详情</van-button>
+        <van-button disabled color="transparent" size="mini" ></van-button>
+        <van-button disabled color="transparent" size="mini" ></van-button>
+        <van-button disabled color="transparent" size="mini" ></van-button>
+        <van-button disabled color="transparent" size="mini" ></van-button>
+        <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" size="small" src='{{i._id}}' data-src='{{i._id}}' bindtap="onDelete"  data-imgid='{{i.imgID}}'>已卖出/删除</van-button>
+      </view>
+</van-card>
+
+
+<van-divider contentPosition="center">没有更多了</van-divider>
+
+
+

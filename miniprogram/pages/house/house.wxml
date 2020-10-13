@@ -1,0 +1,61 @@
+<!--miniprogram/pages/house/house.wxml-->
+<van-nav-bar
+  title="Stevens周边租房信息"
+/>
+
+<!-- 筛选
+<van-dropdown-menu>
+  <van-dropdown-item value="{{ AptHousev }}" options="{{ AptHousese }}" bind:change="onAptHouseChange" />
+  <van-dropdown-item value="{{ roomtypev }}" options="{{ roomtypese }}" bind:change="onroomtypeChange"/>
+  <van-dropdown-item value="{{ bathroomv }}" options="{{ bathroomse }}" bind:change="onbathroomChange"/>
+</van-dropdown-menu> -->
+<van-notice-bar  mode="closeable" text="点击房源进入详情界面，可复制房主微信"  />
+
+<van-tabs sticky animated swipeable active="{{ active }}" bind:change="onTabChange">
+  <van-tab title="长租">
+    <van-card wx:for="{{longhouselist}}" lazy-load="true" wx:for-item="i" currency="$" thumb-mode="aspectFill" 
+      data-src='{{i._id}}' bindtap="onDetail"
+      tag="长租"
+      price="{{i.hprice}}/月"
+      desc="{{i.hintro}}"
+      title="{{AptHousejs[i.AptHouse]}} - {{roomtypejs[i.roomtype]}} - {{bathroomjs[i.bathroom]}}"
+      thumb="{{ i.imgID[0] }}"
+      desc-class="line-limit-2"
+      title-class="itemtitle">
+      <view slot="tags">
+        <van-tag round type="primary" custom-class="tag" wx:if="{{i.date1!=''}}">开始日期：{{i.date1}}</van-tag>
+      </view>
+      <view slot="footer">
+        <view class='placeholder-mid'/>
+      </view>
+    </van-card> 
+  </van-tab>
+
+  <van-tab title="短租（6个月内）">
+    <van-card wx:for="{{shorthouselist}}" lazy-load="true" wx:for-item="i" currency="$" thumb-mode="aspectFill"
+      data-src='{{i._id}}' bindtap="onDetail"
+      tag="短租"
+      price="{{i.hprice}}/月"
+      desc="{{i.hintro}}"
+      title="{{AptHousejs[i.AptHouse]}} - {{roomtypejs[i.roomtype]}} - {{bathroomjs[i.bathroom]}}"
+      thumb="{{ i.imgID[0] }}"
+      desc-class="line-limit-2"
+      title-class="itemtitle">
+      <view slot="tags">
+        <van-tag round type="primary" custom-class="tag" wx:if="{{i.date1!=''}}">可租日期：{{i.date1}}~{{i.date2}}</van-tag>
+      </view>
+      <view slot="footer">
+        <view class='placeholder-mid'/>
+      </view>
+    </van-card>
+  </van-tab>
+</van-tabs>
+
+<van-divider wx:if='{{loading==0}}' contentPosition="center">上拉查看更多</van-divider>
+<van-divider wx:if='{{loading==1}}' contentPosition="center">加载中...</van-divider>
+<van-divider wx:if='{{loading==2}}' contentPosition="center">没有更多啦</van-divider>
+<view class='placeholder-buttom'/>
+
+<navigator url="/pages/addhouse/addhouse" bindtap="onGetOpenid">
+<image  class="round-click" mode='aspectFill' src="../../images/pluscircle.png" > </image>
+</navigator>

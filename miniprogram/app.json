@@ -1,0 +1,63 @@
+{
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/hot/hot"
+      },
+      {
+        "pagePath": "pages/buy/buy"
+      },
+      {
+        "pagePath": "pages/house/house"
+      },
+      {
+        "pagePath": "pages/mine/mine"
+      }
+    ]
+  },
+  "pages": [
+    "pages/hot/hot",
+    "pages/buy/buy",
+    "pages/sm_ad/smad",
+    "pages/house/house",
+    "pages/housedetail/housedetail",
+    "pages/addhouse/addhouse",
+    "pages/share/share",
+    "pages/mine/mine",
+    "pages/additem/additem",
+    "pages/myitem/myitem",
+    "pages/myhouse/myhouse",
+    "pages/myschedule/myschedule",
+    "pages/smadmin/smadmin",
+    "pages/ai/ai",
+    "pages/code/code"
+  ],
+  "plugins": {
+    "chatbot": {
+      "version": "1.1.24",
+      "provider": "wx8c631f7e9f2465e1"
+    },
+    "WechatSI": {
+      "version": "0.3.4",
+      "provider": "wx069ba97219f66d99"
+    }
+  },
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "Stevens 助手平台",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于距离排序"
+    }
+  }
+}

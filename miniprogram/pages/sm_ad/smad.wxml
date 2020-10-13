@@ -1,0 +1,156 @@
+<!--miniprogram/pages/sm_ad/smad.wxml-->
+<van-nav-bar
+  title="填问券，送$10"
+  left-text="去首页"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+
+<van-panel use-footer-slot>
+
+  <van-cell center border='false' title='SM保险 20-21学年用户可参与活动' label='保险购买链接: www.smcovered.com' label-class='invite'>
+    <van-button plain type="info"  size='mini' data-text="www.smcovered.com" bindtap="onCopy" >复制链接</van-button>
+  </van-cell>
+  <van-cell center border='false' use-label-slot label-class='invite'>
+    <view slot='label'>
+      <text space="emsp">waive学校保险最多可省【$1035】!\n</text>
+      <text space="emsp">截止：8.31（本科生）9.15（研究生）</text>
+    </view>
+    <van-button plain type="info"  size='mini' data-text="Funnyteddy" bindtap="onCopy" >SM小助手微信</van-button>
+  </van-cell>
+
+  <van-image  width="750rpx" height="128rpx" src="https://s1.ax1x.com/2020/07/14/UtDE7j.md.jpg" fit="contain"/>
+  
+  <van-steps steps="{{ steps }}" active="{{ stepactive }}"  active-icon="success" active-color="#38f"/>
+  
+  <view slot="footer" wx:if="{{stepactive==10}}">
+  正在查询您的活动信息...
+  </view>
+  
+  <view slot="footer" wx:if="{{stepactive==0}}">
+    <van-cell-group>
+      <van-field
+        required
+        value="{{ newName }}"
+        label="全名拼音："
+        placeholder="购买保险使用的姓名"
+        border="{{ true }}"
+        bind:change="onNewNameChange"
+      />
+      <van-field
+        required
+        value="{{ newMail }}"
+        label="邮箱地址："
+        placeholder="购买保险使用的邮箱"
+        border="{{ true }}"
+        bind:change="onNewMailChange"
+      />
+
+      <picker mode="date" value="{{date}}" start="1990-01-01" end="2019-12-31" bindchange="bindDateChange">
+        <view class="picker">
+          <van-cell required center title='您的生日：' >{{date}}</van-cell>
+        </view>
+      </picker>
+
+      <van-cell center required title='您的年级：' />
+      <van-cell center >
+        <van-radio-group value="{{ radio1 }}" bind:change="onRadio1Change">
+          <view class='check'><van-radio custom-class='check' name="1">本科</van-radio></view>
+          <view class='check'><van-radio custom-class='check' name="2">研一</van-radio></view>
+          <view class='check'><van-radio custom-class='check' name="3">研二</van-radio></view>
+          <view class='check'><van-radio custom-class='check' name="4">博士</van-radio></view>
+        </van-radio-group>
+      </van-cell>
+
+      <van-cell center required title='想要的礼品卡(面值均为$10）：' />
+      <van-cell center >
+        <van-radio-group value="{{ radio2 }}" bind:change="onRadio2Change">
+          <view class='check'><van-radio custom-class='check' name="1">Amazon</van-radio></view>
+          <view class='check'><van-radio custom-class='check' name="2">Sephora</van-radio></view>
+          <view class='check'><van-radio custom-class='check' name="3">Starbucks</van-radio></view>
+        </van-radio-group>
+      </van-cell>
+
+      <van-collapse value="{{ activeNames }}" bind:change="onReasonShow">
+        <van-collapse-item title="为何选择Student Medicover (可多选):" name="1">
+          <van-checkbox-group value="{{ reasonresult }}" bind:change="onReasonChange">
+            <van-cell-group>
+              <van-cell
+                wx:for="{{ reasonlist }}"
+                wx:key="index"
+                title="{{ item }}"
+                value-class="value-class"
+                clickable
+                data-index="{{ index }}"
+                bind:click="toggle"
+                border="{{ false }}"
+              >
+                <van-checkbox
+                  catch:tap="noop"
+                  class="checkboxes-{{ index }}"
+                  name="{{ item }}"
+                />
+              </van-cell>
+            </van-cell-group>
+          </van-checkbox-group>
+        </van-collapse-item>
+      </van-collapse>
+
+      <van-cell required center label='参与活动视为已阅读并同意活动条款（点击查看）' clickable bindtap='openRule'></van-cell>
+      
+      <van-button type="info" block bindtap="addSM10">确认参与</van-button>
+    </van-cell-group>
+    
+  </view>
+
+
+  <view slot="footer" wx:if="{{stepactive==1}}">
+    <van-cell-group>
+      <van-cell label='审核成功后礼品卡会发送至：{{SMmail}}' border="{{ false }}" label-class='labelbuy'>
+        <view slot="title">
+          正在审核中...
+        </view>
+      </van-cell>
+      <van-button type="info" open-type="contact" block bindcontact="handleContact">点击联系客服</van-button>
+    </van-cell-group>
+  </view>
+
+  <view slot="footer" wx:if="{{stepactive==2}}">
+    <van-cell-group>
+      <van-cell use-label-slot border="{{ false }}" label-class='labelbuy'>
+        <view slot="title">
+          审核成功，感谢参与。
+        </view>
+        <view slot='label'>
+          <text space="emsp">礼品卡已发送至：{{SMmail}}\n</text>
+          <text space="emsp">右上角分享给朋友让更多人参与。</text>
+          <text space="emsp">有保险售后问题可以添加微信：Funnyteddy</text>
+        </view>
+      </van-cell>
+      <van-button type="info" open-type="contact" block bindcontact="handleContact">点击联系客服</van-button>
+    </van-cell-group>
+  </view>
+
+  <view slot="footer" wx:if="{{stepactive==3}}">
+    <van-cell-group>
+      <van-cell use-label-slot border="{{ false }}" label-class='labelbuy'>
+        <view slot="title">
+          审核失败，如有异议请联系客服
+        </view>
+        <view slot='label'>
+          <text space="emsp"> 如有以下信息填写错误可以联系客服修正：\n</text>
+          <text space="emsp"> 姓名：{{SMname}}\n</text>
+          <text space="emsp"> 邮箱：{{SMmail}}\n</text>
+          <text space="emsp"> 生日：{{date}}\n</text>
+        </view>
+      </van-cell>
+      <van-button type="info" open-type="contact" block bindcontact="handleContact">点击联系客服</van-button>
+    </van-cell-group>
+  </view>
+
+</van-panel>
+
+<van-popup closeable show="{{ showposter }}" bind:close="onClose" >
+  <van-image  width="720rpx" height="1000rpx" src="https://s1.ax1x.com/2020/07/14/Ut0RII.png" fit="contain"/>
+  <van-button type="warning" block bindtap="onClose">点击进入问券</van-button>
+</van-popup>

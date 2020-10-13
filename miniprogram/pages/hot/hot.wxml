@@ -1,0 +1,372 @@
+<!--miniprogram/pages/hot/hot.wxml-->
+<van-nav-bar
+  title="Stevens小助手"
+/>
+
+
+<navigator wx:if="{{share[3]==1}}" url="/pages/sm_ad/smad">
+  <van-image  width="750rpx" height="235rpx" src="https://s1.ax1x.com/2020/07/14/Ut2oQI.jpg" fit="contain"/>
+</navigator>
+<van-image  wx:if="{{share[5]==1}}" width="100%" height="{{share[7]}}" src="{{share[6]}}" fit="contain"/>
+<!-- <van-image  wx:if="{{share[3]!=1}}" width="100%" height="235rpx" src="https://s1.ax1x.com/2020/07/08/UEVT76.png" fit="contain"/> -->
+<van-notify id="van-notify" />
+
+<van-panel >
+  <van-cell border='{{false}}' center title="{{weather.main.temp-273.15|Int }}℃" label="{{weather.weather[0].description}}" title-class='weathertitle' label-class='weatherlabel' value-class='weathervalue'>
+    <van-image wx:if="{{weather!=''}}" slot='icon' width="80rpx" height="80rpx" src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png"/>
+    <van-image wx:if="{{weather==''}}" slot='icon' width="80rpx" height="80rpx" src="https://s1.ax1x.com/2020/07/08/UExKgK.gif"/>
+    <text wx:if="{{share==''}}" space="emsp">{{timestatus}}！\n</text>
+    <text wx:if="{{share!=''}}" space="emsp">{{share[8]}}\n</text>
+    <van-button wx:if="{{checktotal==0}}" plain color='#0091D5' size='mini' icon='bell'>小心断签会清空天数喔！</van-button>
+    <van-button wx:if="{{checktotal!=0}}" plain color='#0091D5' size='mini' icon='point-gift' bindtap="openCheck">连续签到有礼：第{{checktotal}}天</van-button>
+  </van-cell>
+
+  <van-image width="100%" height="46rpx" src="https://s1.ax1x.com/2020/07/27/aCTc2F.md.jpg" fit="contain"/>
+  <van-grid direction="horizontal" border='{{false}}' gutter="{{ 0 }}" icon-size='34px' clickable="true" column-num="3" >
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/05/US4ro6.png" text="校园地图" bindtap="openMap"/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/05/US4yFK.png" text="中文校历" bindtap="openCalender"/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/05/US4cWD.png" text="教职工\n信息查询" bindtap='openOfficeHour'/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/08/UEexTP.png" text="买卖闲置" bindtap='gotobuy'/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/08/UEmSFf.png" text="租房信息" bindtap='gotohouse'/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/05/US46JO.png" text="我的课表" bindtap='openSchedule'/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/30/anizoF.png" text="校警911\n一键拨打"  data-num="2014016500" bindtap='Makecall'/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/29/aZMQ6H.png" text="返校须知" bindtap='openReturn'/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/29/aZMM1e.png" text="校务表单\n下载链接" bindtap='openDownload'/>
+  </van-grid>
+
+  <van-image width="100%" height="46rpx" src="https://s1.ax1x.com/2020/07/27/aCTCu9.md.jpg" fit="contain"/>
+  <van-grid direction="horizontal" border='{{false}}' gutter="{{ 0 }}" icon-size='32px' clickable="true" column-num="3" >
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/24/UXdaHe.png" text="The Met\n艺术展品" bindtap='openMets'/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/24/UXdNnO.png" text="MoMA\n艺术展品" bindtap='openMOMA'/>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/28/akJ0V1.jpg" text="Whitney\n艺术展品" bindtap='openWhitney'/>
+  </van-grid>
+  <van-grid direction="horizontal" border='{{false}}' gutter="{{ 0 }}" icon-size='32px' clickable="true" column-num="3" >
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/12/U1WMAs.png" text="人工智障" link-type="navigateTo" url="/pages/ai/ai" />
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/27/aCvIIJ.png" bindtap='openExchange'>
+      <text slot='text' wx:if="{{exchange==''}}">实时汇率</text>
+      <text slot='text' wx:if="{{exchange!=''}}">实时汇率\n￥{{exchange}}</text>
+    </van-grid-item>
+    <van-grid-item icon="https://s1.ax1x.com/2020/07/24/UXdwAH.png" text="UrbanDic\n都市词典" bindtap='openUrban'/>
+  </van-grid>
+
+  <view class='placeholder-mid'/>
+
+  <van-row wx:if="{{share[4]==1}}">
+    <van-col span="12">
+      <van-cell border='{{true}}' wx:if="{{covid!=''}}" use-label-slot>
+        <van-image slot='icon' width="60rpx" height="60rpx" src="https://s1.ax1x.com/2020/07/28/akV92V.png" fit="contain"/>
+        <view slot="title">
+          <view class="covidtitle">总确诊：{{covid.cases}}（+{{covid.todayCases}}）</view>
+        </view>
+        <view slot="label">
+          <view class="covidlabel">总死亡：{{covid.deaths}}（+{{covid.todayDeaths}})\n</view>
+          <view class="covidlabel">总检测：{{covid.totalTests}}\n</view>
+          <view class="covidlabel">现存确诊：{{covid.active}}\n</view>
+          <view class="covidlabel">每百万人感染：{{covid.casesPerOneMillion}}\n</view>
+        </view>
+      </van-cell>
+      <van-cell border='{{true}}' wx:if="{{covid==''}}" use-label-slot>
+        <van-image slot='icon' width="60rpx" height="60rpx" src="https://s1.ax1x.com/2020/07/28/akV92V.png" fit="contain"/>
+        <view slot="title">
+          <view class="covidtitle">总确诊：Loading...</view>
+        </view>
+        <view slot="label">
+          <view class="covidlabel">总死亡：Loading...\n</view>
+          <view class="covidlabel">总检测：Loading...\n</view>
+          <view class="covidlabel">现存确诊：Loading...\n</view>
+          <view class="covidlabel">每百万人感染：Loading...\n</view>
+        </view>
+      </van-cell>
+    </van-col>
+    <van-col span="12">
+      <van-cell border='{{true}}' wx:if="{{covidcn!=''}}" use-label-slot>
+        <van-image slot='icon' width="60rpx" height="60rpx" src="https://s1.ax1x.com/2020/07/28/akVp80.png" fit="contain"/>
+        <view slot="title">
+          <view class="covidtitle">总确诊：{{covidcn.cases}}（+{{covidcn.todayCases}}）</view>
+        </view>
+        <view slot="label">
+          <view class="covidlabel">总死亡：{{covidcn.deaths}}（+{{covidcn.todayDeaths}})\n</view>
+          <view class="covidlabel">总检测：{{covidcn.totalTests}}\n</view>
+          <view class="covidlabel">现存确诊：{{covidcn.active}}\n</view>
+          <view class="covidlabel">每百万人感染：{{covidcn.casesPerOneMillion}}\n</view>
+        </view>
+      </van-cell>
+      <van-cell border='{{true}}' wx:if="{{covidcn==''}}" use-label-slot>
+        <van-image slot='icon' width="60rpx" height="60rpx" src="https://s1.ax1x.com/2020/07/28/akVp80.png" fit="contain"/>
+        <view slot="title">
+          <view class="covidtitle">总确诊：Loading...</view>
+        </view>
+        <view slot="label">
+          <view class="covidlabel">总死亡：Loading...\n</view>
+          <view class="covidlabel">总检测：Loading...\n</view>
+          <view class="covidlabel">现存确诊：Loading...\n</view>
+          <view class="covidlabel">每百万人感染：Loading...\n</view>
+        </view>
+      </van-cell>
+    </van-col>
+  </van-row>
+
+  <!-- <view>
+  
+  </view> -->
+
+  <!-- <view slot="footer">
+    
+  </view> -->
+</van-panel>
+  <!-- <van-card lazy-load="true" wx:for="{{news.result.data}}" wx:for-item="i" currency="$"
+    desc="{{i.author_name}}{{i.date}}"
+    title="{{i.title}}" 
+  >
+    <view slot="thumb">
+      <van-image width="5.5rem" height="5.5rem" radius='7' src="{{ i.thumbnail_pic_s }}" fit="cover" show-loading data-src='{{i.thumbnail_pic_s}}' bindtap='previewImage'/>
+    </view>
+  </van-card> -->
+<view class='placeholder-buttom'/>
+
+
+
+
+<!-- 校历 -->
+<van-popup 
+  position= 'right'
+  show="{{ calenderpopshow }}" 
+  bind:close="onClose"
+  custom-class= 'calenderpop'
+  closeable round>
+    <van-cell border='true' wx:for-items="{{calender20f}}" wx:for-item="i" wx:key="key" 
+     title="{{i.date}}" label="{{i.detail}}" value="{{i.note}}" 
+     title-class='calendertitle' label-class='calenderlabel' value-class='calendervalue'></van-cell>
+</van-popup>
+
+<!-- 黄页 -->
+<van-popup 
+  position= 'right'
+  show="{{ officehourpopshow }}" 
+  bind:close="onClose"
+  custom-class= 'calenderpop'
+  round>
+    <van-cell center title="教职工信息查询" label='输入全部或部分姓名查询'/>
+    <van-search
+      value="{{ officehourvalue }}"
+      placeholder="请输入姓名（可模糊搜索）"
+      bind:change="OHChange"
+      bind:search="onOHSearch"
+    />
+    <van-cell-group wx:for-items="{{ohlist}}" wx:for-item="i" wx:key="key">
+      <van-cell border='true' title="{{i.name}}" title-class='calendertitle'/>
+      <van-cell border='true' title="办公室：{{i.Building}} {{i.Room}}" title-class='ohtitle'/>
+      <van-cell border='true' title="电话：{{i.Phone}}" title-class='ohtitle'/>
+      <van-cell border='true' title="邮箱：{{i.Email}}" title-class='ohtitle'/>
+    </van-cell-group>
+</van-popup>
+
+<!-- 课表 -->
+<van-popup 
+  position= 'right'
+  show="{{ schedulepopshow }}" 
+  bind:close="onClose"
+  custom-class= 'calenderpop'
+  round>
+    <van-button size="small" type="primary" bindtap="toSchedule">编辑课表/修改note</van-button>
+    <van-panel wx:for-items="{{memberinfo[0].schedule}}" wx:for-item="i" wx:key="key" wx:for-index='index' title="{{i[0]}}" desc="{{i[1]}}" status="教室：{{i[3]}}" >
+      <view class='ohtitle'>
+        <van-cell title="上课时间" value="{{i[2]}}"/>
+        <van-cell center title="Note:" label="{{i[4]}}" label-class='note'/>
+      </view>
+    </van-panel>
+</van-popup>
+
+
+<!-- Met艺术品 -->
+<van-popup 
+  position= 'right'
+  show="{{ metspopshow }}" 
+  bind:close="onClose"
+  custom-class= 'calenderpop'
+  round>
+    <van-cell-group >
+      <van-cell center border='true' title="The Metropolitan Museum of Art" label='大都会艺术博物馆' title-class='calendertitle'>
+      </van-cell>
+        
+      <van-cell border='true' title="{{met.title}}" label="{{met.artist}}" />
+      <van-image use-error-slot use-loading-slot width="100%" height="600rpx" src="{{met.img}}" fit="contain" data-img="{{met.img}}" bindtap="previewimg">
+        <image slot="error" src="https://s1.ax1x.com/2020/07/10/UuZqGq.png"  mode="contain" ></image> 
+        <image slot="loading" src="https://s1.ax1x.com/2020/07/10/UuZqGq.png"  mode="contain" ></image> 
+      </van-image>
+
+      <van-cell center border='false' label="点击图片可保存分享" >
+        <van-button plain round type="info" size='small' bindtap="metrefresh">换一个</van-button>
+      </van-cell>
+
+    </van-cell-group>
+</van-popup>
+
+<!-- moma -->
+<van-popup 
+  position= 'right'
+  show="{{ momapopshow }}" 
+  bind:close="onClose"
+  custom-class= 'calenderpop'
+  round>
+    <van-cell-group >
+      <van-cell center border='true' title="Museum of Modern Art" label='现代艺术博物馆' title-class='calendertitle'>
+      </van-cell>
+      <van-cell border='true' title="{{moma.title}}" label="{{moma.artist}} in {{moma.time}}" />
+      <van-image use-error-slot use-loading-slot width="100%" height="600rpx" src="{{moma.img}}" fit="contain" data-img="{{moma.img}}" bindtap="previewimg">
+        <image slot="error" src="https://s1.ax1x.com/2020/07/14/Utt7qI.jpg"></image> 
+        <image slot="loading" src="https://s1.ax1x.com/2020/07/14/Utt7qI.jpg"></image> 
+      </van-image>
+      
+      <van-cell center border='false' label="点击图片可保存分享" >
+        <van-button plain round type="info" size='small' bindtap="MOMArefresh">换一个</van-button>
+      </van-cell>
+    </van-cell-group>
+</van-popup>
+
+<!-- whitney -->
+<van-popup 
+  position= 'right'
+  show="{{ whitneypopshow }}" 
+  bind:close="onClose"
+  custom-class= 'calenderpop'
+  round>
+    <van-cell-group >
+      <van-cell center border='true' title="Whitney Museum of American Art" label='惠特尼美国艺术博物馆' title-class='calendertitle'>
+      </van-cell>
+        
+      <van-cell border='true' title="{{whitney.name}}" label="{{whitney.artist}}" />
+      <van-image use-error-slot use-loading-slot width="100%" height="600rpx" src="{{whitney.img}}" fit="contain" data-img="{{whitney.img}}" bindtap="previewimg">
+        <image slot="error" src="https://s1.ax1x.com/2020/07/28/akG31e.jpg"  mode="contain" ></image> 
+        <image slot="loading" src="https://s1.ax1x.com/2020/07/28/akG31e.jpg"  mode="contain" ></image> 
+      </van-image>
+
+      <van-cell center border='false' label="点击图片可保存分享" >
+        <van-button plain round type="info" size='small' bindtap="whitneyrefresh">换一个</van-button>
+      </van-cell>
+
+    </van-cell-group>
+</van-popup>
+
+<!-- urbandic -->
+<van-popup 
+  position= 'right'
+  show="{{ urbanpopshow }}" 
+  bind:close="onClose"
+  custom-class= 'calenderpop'
+  round>
+    <van-search
+      value="{{ urbanvalue }}"
+      placeholder="请输入查询内容"Urban
+      show-actionUrban
+      bind:change="UrbanChange"
+      bind:search="onUrbanSearch"
+    />
+    <van-cell wx:if="{{urbanloading}}"  border='true' title="正在查询……" label="Urban Dictionary" title-class='calendertitle'>
+      <van-image  width="90rpx" height="90rpx" src="https://s1.ax1x.com/2020/07/10/Uu6Xpd.gif" fit="contain"/>
+    </van-cell>
+    <van-cell wx:if="{{!urbanloading}}"  border='true' title="{{urbanlist.list[0].word}}" label="\tUrban Dictionary" title-class='calendertitle'/>
+    <van-cell-group wx:for-items="{{urbanlist.list}}" wx:for-item="i" wx:key="key">
+      <van-cell border='true' title="定义：" label="{{i.definition}}" title-class='ohtitle' />
+      <van-cell border='true' title="举例：" label="{{i.example}}" title-class='ohtitle'/>
+      <van-cell border='true' value="赞同数：{{i.thumbs_up}} / 反对数：{{i.thumbs_down}}" title-class='ohtitle' />
+      <van-divider hairline />
+    </van-cell-group>
+</van-popup>
+
+<!-- 更新弹窗 -->
+<van-popup closeable custom-class= 'onetimepop' show="{{ showonetime }}" round bind:close="onClose" custom-style="padding: 30rpx 10rpx">
+  <van-image  image-class='imagetop' width="100%" height="150rpx" src="https://s1.ax1x.com/2020/07/10/Uuhcuj.gif" fit="contain"/>
+  <van-cell use-label-slot title='热点新功能：'  border="{{ false }}" label-class='labelbuy'>
+    <view slot='label'>
+      <text space="emsp"> 1.闲置分享可以自动拼图生成你的专属分享卡片！快去分享试试吧！\n</text>
+      <text space="emsp"> 2.新增闲置擦亮卡兑换\n</text>
+      <text space="emsp"> 3.新增签到功能！每天登录自动签到\n</text>
+      <text space="emsp"> 4.新增惠特尼艺术馆展品板块\n</text>
+      <text space="emsp"> 5.新增返校须知文件查看</text>
+    </view>
+  </van-cell>
+</van-popup>
+
+<!-- 签到弹窗 -->
+<van-popup closeable custom-class= 'calenderpop' position= 'right' show="{{ showcheck }}" round bind:close="onClose" custom-style="padding: 30rpx 10rpx">
+  <van-image  image-class='imagetop' width="100%" height="150rpx" src="https://s1.ax1x.com/2020/07/10/Uuhcuj.gif" fit="contain"/>
+  <van-cell title='可用兑换天数为：{{memberinfo[0].checkin}}天' label='兑换使用的天数会被清除喔。' border="{{ false }}" label-class='labelbuy'/>
+
+  <van-cell center use-label-slot border="{{ false }}" title='闲置擦亮卡 1 张（已有{{memberinfo[0].renewitemcard}}张）'>
+    <view slot='label' class='ohtitle'>
+      <text space="emsp">兑换所需：2天连续签到\n</text>
+      <text space="emsp">须知：可以在我的闲置中选择闲置进行“擦亮”（即置顶到当前时间），闲置擦亮卡没有使用期限，每张仅可以选择一件闲置进行擦亮，擦亮后擦亮卡会被清除\n</text>
+    </view>
+  </van-cell>
+  <view class="right">
+    <van-button round plain type="info" size='small' data-text="renewitem1" bindtap="prize">兑换 1 张 (消耗2天)</van-button>
+  </view>
+  
+
+  <van-cell use-label-slot border="{{ false }}" label-class='labelbuy'>
+    <view slot='label' class='ohtitle'>
+      <text space="emsp">\n{{active.d1}}\n</text>
+      <text space="emsp">{{active.d2}}\n</text>
+      <text space="emsp">{{active.d3}}\n</text>
+      <text space="emsp">{{active.d4}}\n</text>
+      <text space="emsp">{{active.d5}}\n</text>
+      <text space="emsp">{{active.d6}}\n</text>
+    </view>
+  </van-cell>
+</van-popup>
+
+<!-- 下载弹窗 -->
+<van-popup 
+  position= 'right'
+  show="{{ downloadshow}}" 
+  bind:close="onClose"
+  custom-class= 'calenderpop'
+  round>
+    <van-cell center title="校务表单下载链接" label='点击复制下载链接后粘贴到浏览器即可下载啦！'/>
+    <van-cell center wx:for-items="{{download}}" wx:for-item="i" wx:key="key" 
+      title="{{i.name}}" label="{{i.nameen}}" 
+      title-class='calendertitle' label-class='downloadlabel' value-class='calendervalue'>
+        <van-button plain type="info" size='mini' data-text="{{i.link}}" bindtap='copyText'>下载链接</van-button>
+    </van-cell>
+    <van-button round open-type="contact" block bindcontact="handleContact">没有你需要的文档？点击告诉我</van-button>
+</van-popup>
+
+<!-- 汇率计算 -->
+<van-popup closeable custom-class= 'exchangepop' show="{{ showexchange }}" round bind:close="onClose" custom-style="padding: 30rpx 10rpx">
+
+  <van-cell size="large" center title="人民币美金换算" label='换算基于实时汇率'/>
+  <view class='placeholder-mid'/>
+  <van-field
+    size="large"
+    title-width='4em'
+    label='美元'
+    type='digit'
+    value="{{ valuedollar }}"
+    placeholder="请输入美元金额"
+    border="{{ true }}"
+    bind:change="DollarChange"
+    clearable
+  />
+  <van-field
+    size="large"
+    title-width='4em'
+    label='人民币'
+    type='digit'
+    value="{{ valuermb }}"
+    placeholder="请输入人民币金额"
+    border="{{ true }}"
+    bind:change="RMBChange"
+    clearable
+  />
+  <view class='placeholder-mid'/>
+  <van-button plain type="info" block data-text="美元 {{ valuedollar }} = 人民币 {{ valuermb }}，（当前汇率：{{exchange}}）" bindtap='copyText'>复制转换对</van-button>
+
+</van-popup>
+
+
+
+
+
+
+

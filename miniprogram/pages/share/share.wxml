@@ -1,0 +1,37 @@
+<!--miniprogram/pages/share/share.wxml-->
+<van-nav-bar
+  title="群友的闲置列表"
+  left-text="去首页"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+
+<van-notice-bar wrapable mode="closeable" text="这是卖家一键生成的闲置列表。不想再拼图P图分享没效率？去首页发布闲置，在你的闲置页面就可以分享属于你的闲置列表啦！" custom-class="demo-margin-bottom" />
+
+
+<van-card wx:for="{{itemslist}}" lazy-load="true" wx:for-item="i" currency="$" thumb-mode="aspectFill"
+  num="1"
+  tag="闲置"
+  price="{{i.iprice}}"
+  desc="{{i.iintro}}"
+  title="{{i.iname}}" 
+  thumb="{{ i.imgID }}"
+  desc-class="line-limit-2"
+  title-class="itemtitle"
+>
+  <view slot="tags">
+    <van-tag round type="primary" custom-class="tag" wx:if="{{i.iaddress!=''}}">{{i.iaddress}}</van-tag>
+    <van-tag round type="primary" custom-class="tag" wx:if="{{i.ideliver!=''}}">{{i.ideliver}}</van-tag>
+  </view>
+  <view slot="footer">
+    <van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" size="small" data-src='{{i.imgID}}' bindtap="previewImage">查看大图</van-button>
+  </view>
+</van-card>
+<van-row >
+  <van-col span="8">.</van-col>
+  <van-col span="8"><van-button color="linear-gradient(to right, #4bb0ff, #6149f6)" size="large" data-text="{{itemslist[0].iwxid}}" bindtap='copyText'>复制卖家微信号</van-button></van-col>
+  <van-col span="8">.</van-col>
+</van-row>
+
+
+<van-divider contentPosition="center">没有更多了</van-divider>

@@ -1,0 +1,113 @@
+<!--miniprogram/pages/additem/additem.wxml-->
+
+<van-nav-bar
+  title="发布闲置"
+  left-text="返回"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+
+<van-cell-group>
+  <van-field
+    required
+    label="物品名称"
+    value="{{ iname }}"
+    placeholder="完整的名称可以增加搜索曝光度"
+    border="{{ true }}"
+    bind:change="onNameChange"
+  />
+  <van-field
+    label="地址"
+    value="{{ iaddress }}"
+    placeholder="建议使用模糊地址保护隐私"
+    border="{{ true }}"
+    bind:change="onAddressChange"
+  />
+  <van-field
+    required
+    label="微信号"
+    value="{{ iwxid }}"
+    placeholder="请只输入微信id方便复制"
+    border="{{ true }}"
+    bind:change="onWxidChange"
+  />
+</van-cell-group>
+
+<van-collapse accordion value="{{ radio }}" bind:change="onRadioChange">
+  
+  <van-collapse-item title="送货方式" name="radio1">
+    <van-radio-group value="{{ deliverv }}" bind:change="onDeliverChange">
+      <van-radio name="0">送货</van-radio>
+      <van-radio name="1">自取</van-radio>
+      <van-radio name="2">送货自取均可</van-radio>
+    </van-radio-group>
+  </van-collapse-item>
+
+</van-collapse>
+
+
+<van-cell-group>
+  <van-field
+    value="{{ iintro }}"
+    label="物品简介"
+    placeholder="简介多于2行部分会被隐藏"
+    type="textarea"
+    bind:change="onIntroChange"
+    autosize
+    border="{{ true }}"
+  />
+</van-cell-group>
+
+<van-cell-group>
+  <van-field
+    label="价格"
+    value="{{ iprice }}"
+    placeholder="单位美元"
+    type="digit"
+    border="{{ true }}"
+    bind:change="onPriceChange"
+  />
+</van-cell-group>
+
+<van-cell-group border="{{ true }}">
+  <van-cell required title="添加图片" label="1M左右图片显示效果最佳" >
+    <van-cell>
+      <van-uploader
+        name="6"
+        max-count="1"
+        file-list="{{ fileList6 }}"
+        bind:before-read="beforeRead"
+        bind:after-read="afterRead"
+        bind:delete="delete"
+        bind:click-preview="clickPreview"
+        sizeType="compressed"
+        use-before-read
+      />
+    </van-cell>
+  </van-cell>
+</van-cell-group>
+
+  <!-- <van-cell-group>
+    <van-cell center title="获取定位信息(Beta)" label="请在弹出窗口确认权限">
+      <van-switch size="22px" checked="{{ checked }}" bind:change="onLocationChange" />
+    </van-cell>
+  </van-cell-group> -->
+
+  <van-divider contentPosition="center"></van-divider>
+
+
+
+<van-submit-bar
+  button-text="发布"
+  bind:submit="uploadToCloud"
+  tip="{{ true }}"
+  loading="{{loading}}"
+>
+  <van-tag type="primary">请仔细核对信息后</van-tag>
+  <view slot="tip">如发布虚假信息或商业广告将会被删除，多次违规封禁id</view>
+</van-submit-bar>
+
+
+<canvas style="width: {{cw}}px; height: {{ch}}px;position: absolute; z-index: -1; left: -10000rpx;; top: -10000rpx;" canvas-id="firstCanvas"></canvas>
+
+

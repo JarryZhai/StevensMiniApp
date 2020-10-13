@@ -1,0 +1,235 @@
+<!--miniprogram/pages/mine/mine.wxml-->
+<view class="UCenter-bg">
+    <image src="https://s1.ax1x.com/2020/07/10/Uuhcuj.gif" class="png" mode="widthFix"></image>
+    <view class="text"><text>Stevens二手平台</text></view>
+    <view class="margin-top-sm">
+      <text>by:CSSA</text>
+    </view>
+    <view class="margin-left-sm">
+      <van-button type="info" open-type="contact" size='mini' bindcontact="handleContact" icon='manager-o'>联系CSSA</van-button>
+    </view>
+    <image src="https://raw.githubusercontent.com/weilanwl/ColorUI/master/demo/images/wave.gif" mode="scaleToFill" class="gif-wave"></image>
+</view>
+
+
+<van-grid gutter="{{ 20 }}" column-num="2" >
+  <van-grid-item 
+    icon="balance-list-o"
+    info="可分享" 
+    text="我的闲置" 
+    link-type="navigateTo"
+    url="/pages/myitem/myitem"/>
+  <van-grid-item 
+    icon="wap-home-o"
+    info="可分享" 
+    text="我的转租" 
+    link-type="navigateTo"
+    url="/pages/myhouse/myhouse"/>
+  <van-grid-item 
+    icon="bulb-o" 
+    text="交流/内测" 
+    is-link bind:click="showAdvPopup">
+  </van-grid-item>
+
+  <van-grid-item 
+    icon="description" 
+    text="关于" 
+    is-link bind:click="showAboutPopup">
+  </van-grid-item>
+
+    <van-grid-item 
+    icon="cluster-o" 
+    text="更新日志" 
+    is-link bind:click="showUpdatePopup">
+  </van-grid-item>
+
+</van-grid>
+
+<van-divider contentPosition="center"></van-divider>
+<van-image  width="100%" height="150rpx" src="https://s1.ax1x.com/2020/07/08/UEVT76.png" fit="contain"/>
+
+<!-- aboutpop -->
+<van-popup closeable custom-class= 'aboutpop' show="{{ showabout }}" round bind:close="onClose" custom-style="padding: 10rpx 10rpx">
+  <van-image  image-class='imagetop' width="100%" height="150rpx" src="https://s1.ax1x.com/2020/07/08/UEVT76.png" fit="contain"/>
+  <van-cell title="平台框架：有赞Vant Weapp" label="youzan.github.io/vant-weapp/"/>
+  <van-cell title="天气数据：OpenWeatherMap" label="openweathermap.org/"/>
+  <van-cell title="学校地图：学校官网" label="www.stevens.edu"/>
+  <van-cell title="中文校历：基于学校官网翻译" label="www.stevens.edu"/>
+  <van-cell title="学校黄页：爬取自学校官网7/5/2020" label="www.stevens.edu"/>
+  <van-cell title="Urban Dictionary：调用官方API" label="www.urbandictionary.com/"/>
+  <van-cell title="The Met：调用官方API" label="www.metmuseum.org/"/>
+  <van-cell title="MoMA：官方数据库7/29/2020" label="www.moma.org/"/>
+  <van-cell title="Whitney：官方数据库7/27/2020" label="whitney.org/"/>
+  <van-cell title="新冠数据：worldometers" label="www.worldometers.info"/>
+  <van-cell title="实时汇率：exchangeratesapi" label="https://exchangeratesapi.io/"/>
+  <van-cell title="平台声明" label="点击查看" bindtap='showRulePopup'/>
+</van-popup>
+
+<!-- bug/建议pop -->
+<van-popup closeable custom-class= 'advpop' show="{{ showadv }}" round bind:close="onClose" custom-style="padding: 5rpx 10rpx">
+  <van-image  image-class='imagetop' width="100%" height="150rpx" src="https://s1.ax1x.com/2020/07/08/UEVT76.png" fit="contain"/>
+  <van-cell border='true' title="感谢您对本项目的支持！" label="如果您发现了bug或者有任何想法及想要的新功能，欢迎点击客服直接联系开发者"/>
+  <van-button round block bindtap="openweb">点击获取内测名额</van-button>
+  <van-button round type="info" open-type="contact" block bindcontact="handleContact">BUG/建议请点击联系开发者</van-button>
+</van-popup>
+
+<!-- 更新日志弹窗 -->
+<van-popup closeable custom-class= 'aboutpop' show="{{ showupdate }}" round bind:close="onClose" custom-style="padding: 30rpx 10rpx">
+  <van-image  image-class='imagetop' width="100%" height="150rpx" src="https://s1.ax1x.com/2020/07/10/Uuhcuj.gif" fit="contain"/>
+  <van-cell use-label-slot title='TODO LIST：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 暂无</text>
+    </view>
+  </van-cell>
+  <van-button round open-type="contact" block bindcontact="handleContact">没有你想要的功能？点击告诉开发者</van-button>
+  <van-cell use-label-slot title='1.3.0(9/1)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.闲置界面搜索及免费页面阻止上拉加载\n</text>
+      <text space="emsp"> 2.小程序所有权移交至CSSA</text>
+    </view>
+  </van-cell>
+
+  <van-cell use-label-slot title='1.2.39(8/11)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.哀悼YutingGe同学，RIP\n</text>
+      <text space="emsp"> 2.增加闲置擦亮卡的兑换及闲置擦亮功能</text>
+    </view>
+  </van-cell>
+
+  <van-cell use-label-slot title='1.2.36(8/8)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.为房屋分享添加封面图功能\n</text>
+      <text space="emsp"> 2.进度条变得更好看（更不丑）\n</text>
+      <text space="emsp"> 3.优化我的发布及房屋信息逻辑，速度更快啦!</text>
+    </view>
+  </van-cell>
+
+  <van-cell use-label-slot title='1.2.34(8/6)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.个人闲置分享界面及我的闲置展示数量提升至100个（不够用算我输）\n</text>
+      <text space="emsp"> 2.持续简化发布流程，可以自动填写交货方式\n</text>
+      <text space="emsp"> 3.闲置分享可以自动拼图啦！\n</text>
+      <text space="emsp"> 4.修复闲置价格单位错误</text>
+    </view>
+  </van-cell>
+
+  <van-cell use-label-slot title='1.2.33(8/4)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.新增换汇计算功能\n</text>
+      <text space="emsp"> 2.修复安卓平台无法添加课表的bug</text>
+    </view>
+  </van-cell>
+
+  <van-cell use-label-slot title='1.2.32(7/29)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.新增免费闲置物品过滤\n</text>
+      <text space="emsp"> 2.新增校警电话一键拨打</text>
+    </view>
+  </van-cell>
+
+  <van-cell use-label-slot title='1.2.30(7/28)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.新增校务表单下载板块\n</text>
+      <text space="emsp"> 2.提升MoMA图片清晰度\n</text>
+      <text space="emsp"> 3.新增返校须知文件查看</text>
+    </view>
+  </van-cell>
+
+  <van-cell use-label-slot title='1.2.28(7/27)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.调整大都会博物馆数据获取，现在是全图片且可刷新了！\n</text>
+      <text space="emsp"> 2.新增中美详细疫情数据</text>
+    </view>
+  </van-cell>
+
+  <van-cell use-label-slot title='1.2.28(7/27)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.新增实时汇率显示\n</text>
+      <text space="emsp"> 2.移除回国航班信息功能\n</text>
+      <text space="emsp"> 3.重新设计首页布局\n</text>
+      <text space="emsp"> 4.新增惠特尼艺术馆展品板块</text>
+    </view>
+  </van-cell>
+  <van-cell use-label-slot title='1.2.24(7/25)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.新增签到功能！每天登录自动签到，后期会推出福利兑换\n</text>
+      <text space="emsp"> 2.提升转租图片清晰度\n</text>
+      <text space="emsp"> 3.Vant版本更新，流畅度提升</text>
+    </view>
+  </van-cell>
+  <van-cell use-label-slot title='1.2.22(7/22)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.修改闲置及房屋信息界面，隐藏查看大图按钮，努力做的不那么土\n</text>
+      <text space="emsp"> 2.转租详情界面，点击图片可以查看大图\n</text>
+      <text space="emsp"> 3.闲置界面增加显示全部按钮，优化搜索逻辑\n</text>
+      <text space="emsp"> 4.修复bug</text>
+    </view>
+  </van-cell>
+  <van-cell use-label-slot title='1.2.20(7/16)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.提升转租页面加载速度，优化加载流程\n</text>
+      <text space="emsp"> 2.开放SM活动页面\n</text>
+      <text space="emsp"> 3.转租页面优先显示长租</text>
+    </view>
+  </van-cell>
+  <van-cell use-label-slot title='1.2.16(7/13)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.修复部分安卓机型图片无法压缩的问题\n</text>
+      <text space="emsp"> 2.开放内测版本名额申请\n</text>
+      <text space="emsp"> 3.新增MOMA藏品板块</text>
+    </view>
+  </van-cell>
+  <van-cell use-label-slot title='1.2.15(7/12)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.发布一次闲置后，模糊地址和微信号都可以为你自动填写啦！\n</text>
+      <text space="emsp"> 2.新增更新日志/todo板块\n</text>
+      <text space="emsp"> 3.新增平台声明及用户须知</text>
+    </view>
+  </van-cell>
+  <van-cell use-label-slot title='1.2.14(7/12)：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.提升闲置界面加载速度\n</text>
+      <text space="emsp"> 2.优化加载流程\n</text>
+      <text space="emsp"> 3.新增版本更新弹窗\n</text>
+      <text space="emsp"> 4.提升人工智障智商\n</text>
+      <text space="emsp"> 5.我的界面背景自动更换\n</text>
+      <text space="emsp"> 6.新增加群通道（我的->交流/进群）</text>
+    </view>
+  </van-cell>
+    <van-cell use-label-slot title='1.2.13及之前：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp"> 1.闲置物品交易（含分享）\n</text>
+      <text space="emsp"> 2.转租信息交流（含分享）\n</text>
+      <text space="emsp"> 3.校园工具（地图，校历，黄页，课表）\n</text>
+      <text space="emsp"> 4.疫情信息（美国数字，回国航班）\n</text>
+      <text space="emsp"> 5.Urban Dictionary查询\n</text>
+      <text space="emsp"> 6.大都会博物馆藏品\n</text>
+      <text space="emsp"> 7.人工智能客服</text>
+    </view>
+  </van-cell>
+</van-popup>
+
+<!-- 声明pop -->
+<van-popup closeable custom-class= 'aboutpop' show="{{ showrule }}" round bind:close="onClose" custom-style="padding: 30rpx 10rpx">
+  <van-image  image-class='imagetop' width="100%" height="100rpx" src="https://s1.ax1x.com/2020/07/13/UGf2uV.jpg" fit="contain"/>
+  <van-cell use-label-slot title='1，平台责任：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp">1.1 平台于2020年9月1日起正式变更实际主体和运营团队，平台所有权限和责任均移交至CSSA。平台原开发者（翟睿杰）仍负责为期一年的平台基础维护\n</text>
+      <text space="emsp">1.2 平台部分展示信息来源网络及API，所属信息版权属于原作者，平台已严格查证版权及开源情况，如有侵权请联系开发者。\n</text>
+      <text space="emsp">1.3 平台部分功能有获取用户自愿填写的信息，平台已尽量降低获取信息的敏感度，且不要求用户授权登录来保障用户隐私及信息安全。\n</text>
+    </view>
+  </van-cell>
+  <van-cell use-label-slot title='2，用户须知：'  border="{{ false }}">
+    <view slot='label'>
+      <text space="emsp">2.1 用户登录平台发布的所有信息和图片，均需要本人确保其合法性及符合本平台规定。违反规定的信息会被删除。\n</text>
+      <text space="emsp">2.2 平台会因服务需要适当使用用户自愿提供给平台的信息。\n</text>
+      <text space="emsp">2.3 用户与平台的合作方产生的业务关系均与本平台无关。\n</text>
+      <text space="emsp">2.4 平台欢迎用户自愿帮助平台运行的行为，包括不限于：协助调试，协助内测，协助修正，协助答疑，协助外联，技术支持，资源支持，资金支持。平台欢迎合作者的加入，更期待和用户取得更多交流。\n</text>
+    </view>
+  </van-cell>
+</van-popup>
+
+
+
+
+  <van-divider contentPosition="center"></van-divider>

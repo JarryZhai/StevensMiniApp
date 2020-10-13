@@ -1,0 +1,26 @@
+{
+  "usingComponents": {
+    "van-tabbar": "@vant/weapp/tabbar/index",
+    "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-card": "@vant/weapp/card/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-image": "@vant/weapp/image/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-panel": "@vant/weapp/panel/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-nav-bar": "@vant/weapp/nav-bar/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "chat": "plugin://chatbot/chat",
+    "van-notify": "@vant/weapp/notify/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-row": "@vant/weapp/row/index",
+  "van-col": "@vant/weapp/col/index"
+  }
+}

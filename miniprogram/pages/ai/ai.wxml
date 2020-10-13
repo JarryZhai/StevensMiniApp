@@ -1,0 +1,21 @@
+<!--miniprogram/pages/ai/ai.wxml-->
+<view style="height: 100vh;">
+	<view class="nav-wrap" >
+		<van-nav-bar
+  title="AI客服"
+  left-text="回首页"
+  left-arrow
+  bind:click-left="onClickLeft"
+/>
+	</view>
+  <scroll-view scroll-y="{{isScroll}}"> 
+    <view style="height: calc(100vh - 200rpx)">
+      <chat />
+    </view>
+  </scroll-view> 
+</view>
+
+
+
+
+
